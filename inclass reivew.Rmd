@@ -1,0 +1,92 @@
+---
+title: "review3"
+author: "Steven"
+date: "2019年10月14日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(grDevices) # 不同顏色模型代碼的呈現及轉換
+library(scales) # show_col()螢幕立即顯示顏色
+library(colorspace) # 調色盤選擇及ggplot應用工具
+library(shinyjs) # 支援套件
+```
+
+```{r}
+library(grDevices)
+rgb(0,0,1) # 即對應顏色強度(0,0,255)
+```
+
+```{r}
+rgb(0.5,0,0.7) # 即對應顏色強度(0.5*255,0,0.7*255)進位到整數
+```
+
+```{r}
+library(scales)
+show_col(c(rgb(0,0,1),rgb(0.5,0,0.7)))
+```
+
+```{r}
+show_col(
+  c(
+    hsv(30/360,0,0),hsv(30/360,0.5,0),hsv(30/360,1,0), # (,,lightness=0) 全暗
+    hsv(30/360,0,0.5),hsv(30/360,0.5,0.5),hsv(30/360,1,0.5), # (,,lightness=0.5)
+    hsv(30/360,0,1),hsv(30/360,0.5,1),hsv(30/360,1,1) # (,,lightness=1) 全亮
+  )
+)
+```
+
+```{r}
+choose_color()
+```
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+pal_qual <- colorspace::qualitative_hcl(
+  n = 7, 
+  h = c(0, 360), c = 35, l = 85, 
+  register = "myQualitative"
+  )
+pal_qual %>% specplot(hcl=F)
+```
+
+```{r}
+data.frame(
+  x1 = factor(sample(c(1L,2L,3L),100,replace=T)),
+  x2 = runif(100),
+  y = runif(100),
+  z1 = rnorm(100),
+  z2 = factor(sample(letters[1:4],100,replace=T))
+) -> df_example
+```
+
+```{r}
+library(dplyr); library(stringr); library(ggplot2); library(plotly); library(lubridate); library(readr); library(tidyr); library(showtext)
+```
+
+```{r}
+df_example %>%
+  ggplot()+
+  geom_boxplot(
+    aes(x=x1,y=y,fill=z2)
+  ) -> basicBoxplot
+basicBoxplot
+```
+
+```{r}
+df_example %>%
+  ggplot()+
+  geom_point(
+    aes(x=x2,y=y,color=z1)
+  ) -> basicScatterPlot
+basicScatterPlot
+
+```
+
